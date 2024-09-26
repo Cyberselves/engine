@@ -5,6 +5,7 @@
 package gui
 
 import (
+	"fmt"
 	"strings"
 	"time"
 
@@ -88,6 +89,11 @@ func NewEdit(width int, placeHolder string) *Edit {
 
 // SetText sets this edit text
 func (ed *Edit) SetText(newText string) *Edit {
+	defer func() {
+		if r := recover(); r != nil {
+			fmt.Println("Recovered from engine set text panic Text Edit:", r)
+		}
+	}()
 
 	// Remove new lines from text
 	ed.text = strings.Replace(newText, "\n", "", -1)
@@ -465,7 +471,11 @@ func (ed *Edit) onKey(evname string, ev interface{}) {
 
 // onChar receives subscribed char events
 func (ed *Edit) onChar(evname string, ev interface{}) {
-
+	defer func() {
+		if r := recover(); r != nil {
+			fmt.Println("Recovered from engine Text Edit onChar:", r)
+		}
+	}()
 	cev := ev.(*window.CharEvent)
 	ed.CursorInput(string(cev.Char))
 }
