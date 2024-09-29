@@ -76,7 +76,7 @@ func (l *Label) initialize(msg string, font *text.Font) {
 func (l *Label) SetText(text string) {
 	defer func() {
 		if r := recover(); r != nil {
-			fmt.Println("Recovered from panic:", r)
+			fmt.Println("Recovered from engine set text panic:", r)
 		}
 	}()
 
