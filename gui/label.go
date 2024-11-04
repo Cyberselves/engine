@@ -184,7 +184,6 @@ func (l *Label) Font() *text.Font {
 
 // SetFontSize sets the point size of the font.
 func (l *Label) SetFontSize(size float64) *Label {
-
 	l.style.PointSize = size
 	l.SetText(l.text)
 	return l
