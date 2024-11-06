@@ -73,10 +73,11 @@ func (l *Label) initialize(msg string, font *text.Font) {
 }
 
 // SetText sets and draws the label text using the font.
-func (l *Label) SetText(text string) {
+func (l *Label) SetText(text string) (err error) {
 	defer func() {
 		if r := recover(); r != nil {
 			fmt.Println("Recovered from engine set text panic:", r)
+			err = fmt.Errorf(fmt.Sprintf("Recovered from engine set text panic:", r))
 		}
 	}()
 
@@ -113,6 +114,8 @@ func (l *Label) SetText(text string) {
 	// since we enlarged the font texture for higher quality, we have to scale it back to it's original point size
 	width, height = width/float32(scaleX), height/float32(scaleY)
 	l.Panel.SetContentSize(width, height)
+
+	return nil
 }
 
 // Text returns the label text.
