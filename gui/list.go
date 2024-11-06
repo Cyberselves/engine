@@ -528,7 +528,6 @@ func (litem *ListItem) update() {
 
 // applyStyle applies the specified style to this ListItem
 func (litem *ListItem) applyStyle(s *ListItemStyle) {
-
 	styleCopy := s.PanelStyle
 	styleCopy.Padding.Left += litem.padLeft
 	litem.Panel.ApplyStyle(&styleCopy)

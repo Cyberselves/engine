@@ -252,3 +252,7 @@ func (il *ImageLabel) recalc() {
 		il.icon.SetPosition(px, ly)
 	}
 }
+
+func (il *ImageLabel) Recalc() {
+	il.recalc()
+}

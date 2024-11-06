@@ -637,3 +637,9 @@ func (s *ItemScroller) applyStyle(st *ItemScrollerStyle) {
 
 	s.Panel.ApplyStyle(&st.PanelStyle)
 }
+
+// Update ... added by SPW
+func (s *ItemScroller) Update() {
+	s.autoSize()
+	s.recalc()
+}
