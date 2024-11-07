@@ -762,6 +762,10 @@ func (p *Panel) calcHeight() float32 {
 		p.marginSizes.Top + p.marginSizes.Bottom
 }
 
+//func (p *Panel) ManualResize(width, height float32, dispatch bool) {
+//	p.resize(width, height, dispatch)
+//}
+
 // resize tries to set the external size of the panel to the specified
 // dimensions and recalculates the size and positions of the internal areas.
 // The margins, borders and padding sizes are kept and the content

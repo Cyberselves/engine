@@ -23,10 +23,11 @@ import (
 
 // ImageLabel is a panel which can contain an Image or Icon plus a Label side by side.
 type ImageLabel struct {
-	Panel        // Embedded panel
-	label Label  // internal label
-	image *Image // optional internal image
-	icon  *Label // optional internal icon label
+	Panel                                   // Embedded panel
+	label                            Label  // internal label
+	image                            *Image // optional internal image
+	icon                             *Label // optional internal icon label
+	centerHorizontal, centerVertical bool   // SW ADDED OPTIONAL
 }
 
 // ImageLabelStyle contains the styling of an ImageLabel.
@@ -230,10 +231,17 @@ func (il *ImageLabel) recalc() {
 	}
 
 	// Centralize horizontally
-	px := (width - minWidth) / 2
+	px := float32(0.0)
+	if il.centerHorizontal {
+		px = (width - minWidth) / 2
+	}
 
 	// Set label position
-	ly := (height - il.label.Height()) / 2
+	ly := float32(0.0)
+
+	if il.centerVertical {
+		ly = (height - il.label.Height()) / 2
+	}
 	il.label.SetPosition(px+imgWidth+spacing, ly)
 
 	// Image/icon position
@@ -243,4 +251,8 @@ func (il *ImageLabel) recalc() {
 	} else if il.icon != nil {
 		il.icon.SetPosition(px, ly)
 	}
+}
+
+func (il *ImageLabel) Recalc() {
+	il.recalc()
 }

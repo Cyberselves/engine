@@ -465,6 +465,18 @@ func (n *TreeNode) updateItems() {
 	n.insertItems(pos + 1)
 }
 
-func (n *TreeNode) GetLabel() *Label{
+func (n *TreeNode) GetLabel() *Label {
 	return &n.label
+}
+
+func (n *TreeNode) GetListItem() *ListItem {
+	return n.litem
+}
+
+func (n *TreeNode) GetItems() []IPanel {
+	return n.items
+}
+
+func (n *TreeNode) GetLevel() int {
+	return n.level()
 }

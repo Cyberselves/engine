@@ -257,10 +257,10 @@ func Init(width, height int, title string) error {
 	// At the end of this function, the window will be set to full screen if requested.
 	w.Window, err = glfw.CreateWindow(width, height, title, nil, nil)
 	if err != nil {
+		fmt.Println("****Error at glfw.CreateWindow****")
 		return err
 	}
 	w.MakeContextCurrent()
-
 	// Create OpenGL state
 	w.gls, err = gls.New()
 	if err != nil {
