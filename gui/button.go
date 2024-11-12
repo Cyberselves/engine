@@ -23,13 +23,14 @@ import (
 
 // Button represents a button GUI element
 type Button struct {
-	Panel                   // Embedded Panel
-	Label     *Label        // Label panel
-	image     *Image        // pointer to button image (may be nil)
-	icon      *Label        // pointer to button icon (may be nil
-	styles    *ButtonStyles // pointer to current button styles
-	mouseOver bool          // true if mouse is over button
-	pressed   bool          // true if button is pressed
+	Panel                                          // Embedded Panel
+	Label                            *Label        // Label panel
+	image                            *Image        // pointer to button image (may be nil)
+	icon                             *Label        // pointer to button icon (may be nil
+	styles                           *ButtonStyles // pointer to current button styles
+	mouseOver                        bool          // true if mouse is over button
+	pressed                          bool          // true if button is pressed
+	centerHorizontal, centerVertical bool
 }
 
 // ButtonStyle contains the styling of a Button
@@ -247,7 +248,10 @@ func (b *Button) recalc() {
 	}
 
 	// Centralize horizontally
-	px := (width - minWidth) / 2
+	px := float32(0)
+	if b.centerHorizontal {
+		px = (width - minWidth) / 2
+	}
 
 	// Set label position
 	ly := (height - b.Label.Height()) / 2
