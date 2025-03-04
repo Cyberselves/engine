@@ -23,13 +23,15 @@ import (
 
 // Button represents a button GUI element
 type Button struct {
-	Panel                   // Embedded Panel
-	Label     *Label        // Label panel
-	image     *Image        // pointer to button image (may be nil)
-	icon      *Label        // pointer to button icon (may be nil
-	styles    *ButtonStyles // pointer to current button styles
-	mouseOver bool          // true if mouse is over button
-	pressed   bool          // true if button is pressed
+	Panel                          // Embedded Panel
+	Label            *Label        // Label panel
+	image            *Image        // pointer to button image (may be nil)
+	icon             *Label        // pointer to button icon (may be nil
+	styles           *ButtonStyles // pointer to current button styles
+	mouseOver        bool          // true if mouse is over button
+	pressed          bool          // true if button is pressed
+	CenterHorizontal bool
+	CenterVertical   bool
 }
 
 // ButtonStyle contains the styling of a Button
@@ -70,6 +72,9 @@ func NewButton(text string) *Button {
 	b.Label = NewLabel(text)
 	b.Label.Subscribe(OnResize, func(name string, ev interface{}) { b.recalc() })
 	b.Panel.Add(b.Label)
+
+	b.CenterHorizontal = true
+	b.CenterVertical = true
 
 	b.recalc() // recalc first then update!
 	b.update()
@@ -247,10 +252,17 @@ func (b *Button) recalc() {
 	}
 
 	// Centralize horizontally
-	px := (width - minWidth) / 2
+	px := float32(0)
+	if b.CenterHorizontal {
+		px = (width - minWidth) / 2
+	}
 
 	// Set label position
-	ly := (height - b.Label.Height()) / 2
+	ly := float32(0)
+	if b.CenterVertical {
+		ly = (height - b.Label.Height()) / 2
+	}
+
 	b.Label.SetPosition(px+imgWidth+spacing, ly)
 
 	// Image/icon position
@@ -260,4 +272,13 @@ func (b *Button) recalc() {
 	} else if b.icon != nil {
 		b.icon.SetPosition(px, ly)
 	}
+}
+
+func (b *Button) Reset() {
+	b.mouseOver = false
+	b.update()
+}
+
+func (b *Button) GetIcon() *Label {
+	return b.icon
 }
